@@ -1,0 +1,44 @@
+import * as React from 'react';
+
+import {updateStyle} from '../../../utils/slotSheet';
+
+import Block from '../../base/Block';
+
+import sheet from './styles';
+
+import Teaser from './teaser/index';
+
+let style = null;
+
+export default class extends React.Component<any> {
+
+	componentWillMount() {
+		const {
+			locator,
+		} = this.props;
+
+		style = updateStyle(style, locator, sheet(locator));
+	}
+
+	render() {
+		const {
+			items,
+			locator,
+			transform,
+		} = this.props;
+
+		return (
+			<Block className={transform('wrapper wrapper_frame')}>
+				{items.map((item, index) => (
+					<Teaser
+						locator={locator}
+						item={item}
+						index={index}
+						transform={transform}
+						key={index}
+					/>
+				))}
+			</Block>
+		);
+	}
+}
